@@ -121,5 +121,5 @@ pip install -r test-requirements.py
 ``
 3. test it use py.test
 ``
-py.test sms/tests.py
+py.test vote/tests.py
 ``

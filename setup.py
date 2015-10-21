@@ -1,31 +1,29 @@
-import os
-from setuptools import setup
+# -*- coding: utf-8 -*-
 
-README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
-
-# allow setup.py to be run from any path
-os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
+from setuptools import setup, find_packages
 
 setup(
-    name='django-vote',
-    version='1.0.9',
-    packages=['vote'],
+    name = 'django-send-messages',
+    version = '1.0.0',
+    license='BSD',
+    description = 'A simple API to send messages, includes Yunpian backend and Wechat(weixin) backend.',
+    long_description=open('README.md').read(),
+    author='Leon Liu',
+    author_email='liuyong@hwbuluo.com',
+    url='https://github.com/hwbuluo/django-send-messages',
+    packages=find_packages(),
     include_package_data=True,
-    license='BSD License',
-    description='A simple Django app to conduct vote.',
-    long_description=README,
-    url='https://github.com/Beeblio/django-vote',
-    author='shellfly',
-    author_email='shell0fly@gmail.com',
+    extras_require = {
+      'django': ['Django'],
+    },
     classifiers=[
-        'Development Status :: 4 - Beta',
-        'Environment :: Web Environment',
+        'Development Status :: 3 - Alpha',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
         'Framework :: Django',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2.7',
         'Topic :: Internet :: WWW/HTTP',
-        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
 )

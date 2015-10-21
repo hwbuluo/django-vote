@@ -3,14 +3,14 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = 'django-send-messages',
+    name = 'django-vote',
     version = '1.0.0',
     license='BSD',
-    description = 'A simple API to send messages, includes Yunpian backend and Wechat(weixin) backend.',
+    description = 'A simple API to vote.',
     long_description=open('README.md').read(),
     author='Leon Liu',
     author_email='liuyong@hwbuluo.com',
-    url='https://github.com/hwbuluo/django-send-messages',
+    url='https://github.com/hwbuluo/django-vote',
     packages=find_packages(),
     include_package_data=True,
     extras_require = {

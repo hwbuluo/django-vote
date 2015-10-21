@@ -5,12 +5,11 @@ A simple API for vote any model,fork from [Beeblio/django-vote](https://github.c
 
 ## Quick start
 
-1. Install ``django-vote`` by pip::
+* Install ``django-vote`` by pip::
 ```
 pip install git+ssh://git@github.com/hwbuluo/django-vote.git
 ```
-
-2. Add vote to your INSTALLED_APPS setting like this:
+* Add vote to your INSTALLED_APPS setting like this:
 
 ```python
     INSTALLED_APPS = (
@@ -18,14 +17,12 @@ pip install git+ssh://git@github.com/hwbuluo/django-vote.git
     'vote',
     )
 ```
-
-3. Run 
+* Run 
 ```python 
-python manage.py syncdb
+python manage.py migrate
 ``` 
 to create the vote models.
-
-4. Declare vote field to the model you want to vote:
+* Declare vote field to the model you want to vote:
 ```python
 
     from vote.managers import VotableManager
@@ -34,8 +31,7 @@ to create the vote models.
         ...
         votes = VotableManager()
 ```
-
-5. Use vote API::
+* Use vote API::
 ```python
     >>> review = ArticleReview.objects.get(pk=1)
     >>> review.votes.up(user)

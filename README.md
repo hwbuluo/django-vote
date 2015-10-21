@@ -1,50 +1,76 @@
-# django-send-messages
-A simple API to send messages，follow django mail design. It includes Yunpian backend and Wechat(weixin) backend. You can easily send sms message and wechat message by it. [Yunpian](http://www.yunpian.com) is a great sms cloud service. And [Wechat](https://mp.weixin.qq.com/) is the most famous social network in china.
-
-And it can easily be extended to other sms backend.
-
-Install
--------
-``
-pip install git+ssh://git@github.com/hwbuluo/django-send-messages.git
-``
-
-Usage
------
-
-Add ``vote`` to your ``INSTALLED_APPS`` setting and add an
-
-You can see the testproj for detail.
-
-Enjoy it!
+# django-vote
+A simple API for vote any model,fork from [Beeblio/django-vote](https://github.com/Beeblio/django-vote). It includes needed migration for django 1.7,and change test to py.test.
 
 
-# About Contribution 
 
-贡献代码指南
+## Quick start
 
-我们非常欢迎大家来贡献代码，我们会向贡献者致以最诚挚的敬意,让我们一起创造出好用的开源云消息接入服务产品。
+1. Install ``django-vote`` by pip::
+```
+pip install git+ssh://git@github.com/hwbuluo/django-vote.git
+```
 
-目前我们只是引入了云片的短信服务，让Django开发者可以很容易的使用云片提供的服务进行短信发送，并提供了测试的mock backend，和接收云片的短信发送成功回执。但是还有一些云片的回调并未处理，具体可以参考[云片文档](http://www.yunpian.com/api/sms.html)，在view.py中进行添加。
+2. Add vote to your INSTALLED_APPS setting like this:
 
-我们计划下一步引入微信的sendbackend，可以通过微信公众平台提供的模版消息接口，给指定人员发送消息，欢迎大家参与进来。
+```python
+    INSTALLED_APPS = (
+    ...
+    'vote',
+    )
+```
 
-一般可以通过在Github上提交[Pull Request](https://github.com/hwbuluo/django-send-messages)来贡献代码。
+3. Run 
+```python 
+python manage.py syncdb
+``` 
+to create the vote models.
 
-## Pull Request要求
+4. Declare vote field to the model you want to vote:
+```python
 
-- **代码规范** 遵从pep8，pythonic。
+    from vote.managers import VotableManager
 
-- **代码格式** 提交前 请按 pep8 进行格式化。
+    class ArticleReview(models.Model):
+        ...
+        votes = VotableManager()
+```
 
-- **必须添加测试！** - 如果没有测试，那么提交的补丁是不会通过的。
+5. Use vote API::
+```python
+    >>> review = ArticleReview.objects.get(pk=1)
+    >>> review.votes.up(user)
+    >>> review.votes.down(user)
+```
 
-- **创建feature分支** - 最好不要从你的master分支提交 pull request。
+## API
 
-- **一个feature提交一个pull请求** - 如果你的代码变更了多个操作，那就提交多个pull请求吧。
+### Adds a new vote to the object
+```python
+up(user)
+```
+### Removes vote to the object
+```python
+down(user)
+```
+### Check if the user already voted the object
+```python
+exists(user)
+```
 
-- **清晰的commit历史** - 保证你的pull请求的每次commit操作都是有意义的。如果你开发中需要执行多次的即时commit操作，那么请把它们放到一起再提交pull请求。
+### Returns the number of votes for the object
+```python
+count()
+```
 
+### Returns a list of users who voted and their voting date
+```python
+users()
+```
+
+### add extra info to original queryset
+```python
+filter()
+```
 
 ## 运行测试(Run tests)
 
@@ -60,7 +86,28 @@ pip install -r test-requirements.py
 ``
 3. test it use py.test
 ``
-py.test sms/tests.py
+py.test vote/tests.py
 ``
 
+## About Contribution 
+
+贡献代码指南
+
+我们非常欢迎大家来贡献代码，我们会向贡献者致以最诚挚的敬意,让我们一起创造出好用的开源云消息接入服务产品。
+
+一般可以通过在Github上提交[Pull Request](https://github.com/hwbuluo/django-vote)来贡献代码。
+
+## Pull Request要求
+
+- **代码规范** 遵从pep8，pythonic。
+
+- **代码格式** 提交前 请按 pep8 进行格式化。
+
+- **必须添加测试！** - 如果没有测试，那么提交的补丁是不会通过的。
+
+- **创建feature分支** - 最好不要从你的master分支提交 pull request。
+
+- **一个feature提交一个pull请求** - 如果你的代码变更了多个操作，那就提交多个pull请求吧。
+
+- **清晰的commit历史** - 保证你的pull请求的每次commit操作都是有意义的。如果你开发中需要执行多次的即时commit操作，那么请把它们放到一起再提交pull请求。
 
